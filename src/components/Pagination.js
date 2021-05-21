@@ -16,7 +16,7 @@ const Pagination = (props) => {
         <nav>
             <ul className="pagination justify-content-center">
                 <li className="page-item">
-                    <a className="page-link" href="#" onClick={() => prevPage()}>Previous</a>
+                    <a className="page-link" href="#" onClick={() => prevPage()} disabled={currentPage == pageNumbers[0] ? true : false}>Previous</a>
                 </li>
 
                 {pageNumbers.map(num => (
@@ -25,9 +25,9 @@ const Pagination = (props) => {
                                 <span class="sr-only">{num}</span></a>
                         </li>
                     ))}
-                    <li className="page-item ">
-                        <a className="page-link" href="#" onClick={() => nextPage()}>Next</a>
-                    </li>
+                <li className="page-item ">
+                    <a className="page-link" href="#" onClick={() => nextPage()} disabled={currentPage == pageNumbers[pageNumbers.length - 1] ? true : false}>Next</a>
+                </li>
                 </ul>
         </nav>
         </Wrapper>
