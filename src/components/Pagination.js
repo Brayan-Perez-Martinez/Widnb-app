@@ -1,10 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Space} from 'antd'
 
 
 const Pagination = (props) => {
-    const { hotelsPerPage, totalHotels, paginate, nextPage, prevPage,currentPage,activePage } = props
+    const { hotelsPerPage, totalHotels, paginate, nextPage, prevPage,currentPage } = props
     const pageNumbers = []
 
     for (let i = 1; i <= Math.ceil(totalHotels / hotelsPerPage); i++) {

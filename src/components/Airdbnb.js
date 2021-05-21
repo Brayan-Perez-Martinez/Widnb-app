@@ -1,5 +1,5 @@
 import React, {  useState } from 'react'
-import { Input, Divider,Button,Space} from 'antd'
+import { Input, Divider} from 'antd'
 import 'antd/dist/antd.css';
 import logo from '../assets/logo.png'
 import styled from 'styled-components'
@@ -26,7 +26,6 @@ const Airdbnb = () => {
     
     const indexOfLastHotel = currentPage * hotelsPerPage;
     const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
-    const [activePage,setActivePage] = useState(false)
 /*     const currentHotels = data.slice(indexOfFirstHotel,indexOfLastHotel)
  */
     const maxPage = Math.ceil([...data].length / hotelsPerPage)
@@ -35,7 +34,6 @@ const Airdbnb = () => {
         setCurrentPage(pageNum)
     console.log(currentPage)
 }
-console.log(activePage)
 
     const nextPage = () => {
         if(currentPage > maxPage - 1 ) return
