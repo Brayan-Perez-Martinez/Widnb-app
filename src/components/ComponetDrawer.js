@@ -39,8 +39,37 @@ const ComponetDrawer = ( props ) => {
 
   useEffect(() => {
     finalCount()
-  }, [countAdult, countChild])
+  }, [countAdult, countChild]) 
 
+
+  const adultIncrement = () =>{
+       setCountAdult(countAdult => countAdult + 1)
+  }
+  const adultDecrement = () =>{
+    if(countAdult === 0) return
+    setCountAdult(countAdult => countAdult - 1)
+
+  }
+
+  const childIncrement = () =>{
+    setCountChild(countChild => countChild + 1)
+  }
+
+  const childDecrement = () => {
+    if(countChild === 0) return
+    setCountChild(countChild => countChild - 1)
+
+  }
+
+  const maxCount = () =>{
+    if (!isNaN(count)){
+      console.log('es un numero')
+    }else{
+      console.log('no es un numero')
+    }
+  }
+
+  maxCount()
   const selectCity = (value) =>{
    console.log(value)
    setLocation(value)
@@ -97,16 +126,16 @@ const ComponetDrawer = ( props ) => {
           <div className="Counting">
             <p>Adults</p>
             <p>Ages 13 or above</p>
-            <span><Button className="btn-1" onClick={() => setCountAdult(countAdult - 1)}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-4px' }}>remove</span></Button>
+            <span><Button className="btn-1" onClick={adultDecrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-4px' }}>remove</span></Button>
               {countAdult}
-              <Button className="btn-2" onClick={() => setCountAdult(countAdult + 1)}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-5px' }}>add</span></Button>
+              <Button className="btn-2" onClick={adultIncrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-5px' }}>add</span></Button>
             </span>
             <p>Children</p>
             <p>Ages 2-12</p>
             <span>
-              <Button className="btn-1" onClick={() => setCountChild(countChild - 1)}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-4px' }}>remove</span></Button>
+              <Button className="btn-1" onClick={childDecrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-4px' }}>remove</span></Button>
               {countChild}
-              <Button className="btn-2" onClick={() => setCountChild(countChild + 1)}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-5px' }}>add</span></Button>
+              <Button className="btn-2" onClick={childIncrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-5px' }}>add</span></Button>
             </span>
           </div>
           </form>

@@ -5,15 +5,15 @@ import logo from '../assets/logo.png'
 import styled from 'styled-components'
 import { STAY_LIST } from '../api/data'
 import ComponetDrawer from './ComponetDrawer';
+import Pagination from './Pagination';
 
-const Windbnb = () => {
+const Airdbnb = () => {
 
 
     
 
 
     const [data, setData] = useState(STAY_LIST)
-    const [filterSolicitud, setFilterSolicitud] = useState();
 
     const [visible, setVisible] = useState(false)
     const [city, setCity] = useState('')
@@ -21,24 +21,35 @@ const Windbnb = () => {
     const count = data.length
     const [location ,setLocation] = useState('')
     const [state, setstate] = useState()
-    const [currentPage,setCurrentPage] = useState(0)
-    const perPage= 5
-    const maxPage = Math.ceil([...data].length / perPage)
-
-    const offset = currentPage * perPage
-    const [pages,setPage] = useState([maxPage])
-
-    const handleSubCurrentPage = () =>{
-        if(currentPage === 0) return;
-        setCurrentPage(currentPage - 1)
-
-    }
+    const [currentPage, setCurrentPage] = useState(1)
+    const [hotelsPerPage, setHotelsPerPage] = useState(5)
     
-    const handleAddCurrentPage = () =>{
-        if(currentPage >= maxPage - 1) return;
-        setCurrentPage(currentPage + 1)
+    const indexOfLastHotel = currentPage * hotelsPerPage;
+    const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
+    const [activePage,setActivePage] = useState(false)
+/*     const currentHotels = data.slice(indexOfFirstHotel,indexOfLastHotel)
+ */
+    const maxPage = Math.ceil([...data].length / hotelsPerPage)
 
+    const paginate =( pageNum) => {
+        setActivePage(true)
+        console.log(activePage)
+        setCurrentPage(pageNum)
+    console.log(currentPage)
+}
+console.log(activePage)
+
+    const nextPage = () => {
+        if(currentPage >= maxPage - 1 ) return
+        setCurrentPage(currentPage + 1)
     }
+
+    const prevPage = () => {
+        if(currentPage === 1) return
+        setCurrentPage(currentPage - 1)
+    }
+   
+    
     console.log(state)
      
    console.log(city)
@@ -113,7 +124,7 @@ const Windbnb = () => {
 
                 <div className='row'>
                     {
-                        data.slice(offset,offset + perPage).map((item, index) =>
+                        data.slice(indexOfFirstHotel,indexOfLastHotel).map((item, index) =>
                         (
                             <div key={index} className='col-md-4 col-xs-4'>
                                 <img src={item?.photo} alt="property" className="imagenes" />
@@ -131,21 +142,9 @@ const Windbnb = () => {
                         )
                     }
                 </div>
-                <div>
-                <Space>
-            <Button onClick={() => handleSubCurrentPage()} type="primary" shape="circle">
-            PREV
-             </Button>
-             <Button  type="primary" shape="circle">
-             {currentPage + 1}
-             </Button>
-             
-             <Button onClick={() => handleAddCurrentPage()} type="primary" shape="circle">
-             NEXT
-             </Button> 
-             </Space>
-            </div>
-
+              <Pagination hotelsPerPage={hotelsPerPage} currentPage={currentPage} activePage={activePage} totalHotels={data.length}
+              paginate={paginate} nextPage={nextPage} prevPage={prevPage} 
+ />
             </div>
            
         </Wrapper>
@@ -235,4 +234,4 @@ border-radius: 12px;
 }
 
 `
-export default Windbnb
+export default Airdbnb
