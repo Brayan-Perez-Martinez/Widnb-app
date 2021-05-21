@@ -32,15 +32,13 @@ const Airdbnb = () => {
     const maxPage = Math.ceil([...data].length / hotelsPerPage)
 
     const paginate =( pageNum) => {
-        setActivePage(true)
-        console.log(activePage)
         setCurrentPage(pageNum)
     console.log(currentPage)
 }
 console.log(activePage)
 
     const nextPage = () => {
-        if(currentPage >= maxPage - 1 ) return
+        if(currentPage > maxPage - 1 ) return
         setCurrentPage(currentPage + 1)
     }
 
@@ -142,7 +140,7 @@ console.log(activePage)
                         )
                     }
                 </div>
-              <Pagination hotelsPerPage={hotelsPerPage} currentPage={currentPage} activePage={activePage} totalHotels={data.length}
+              <Pagination hotelsPerPage={hotelsPerPage} currentPage={currentPage}  totalHotels={data.length}
               paginate={paginate} nextPage={nextPage} prevPage={prevPage} 
  />
             </div>
