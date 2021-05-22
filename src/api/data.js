@@ -14,7 +14,7 @@ export const STAY_LIST = [
     },
     {       id:2,
       city: 'Turku',
-      country: 'Noruega',
+      country: 'Finland',
       superHost: false,
       title: 'Nice apartment in center of Helsinki',
       rating: 4.2,
