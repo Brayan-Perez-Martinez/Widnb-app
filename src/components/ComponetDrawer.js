@@ -15,8 +15,7 @@ const ComponetDrawer = (props) => {
   const [location, setLocation] = useState('')
   const [data, setData] = useState([])
   const [citys, setCitys] = useState([])
-  const [countrys, setCountrys] = useState([])
-  const [cico, setCico] = useState()
+
 
   const getData = () => {
 
@@ -67,9 +66,7 @@ const ComponetDrawer = (props) => {
 
   const maxCount = () => {
     if (!isNaN(count)) {
-      console.log('es un numero')
     } else {
-      console.log('no es un numero')
     }
   }
 
@@ -97,31 +94,22 @@ const ComponetDrawer = (props) => {
 
 
   const optionsSelect = () => {
-    let citys = [];
-    let countrys = []
-
-    let cico = []
+    let locals = [];
+   
+    let all = 'all'
     data.map((item) => {
       const city = item.city;
-      const country = item.country
-      if (!countrys.includes(country)) {
-        countrys = [...countrys, country]
+      if (!locals.includes(city)) {
+        locals = [...locals, city]
       }
-      if (!citys.includes(city)) {
-        citys = [...citys, city]
-      }
-
     })
-    cico = [...cico, countrys, citys]
-    console.log(citys)
-    console.log(countrys)
-    console.log(cico)
-    setCitys(citys)
-    setCountrys(countrys)
-    setCico(cico)
-    return citys, countrys, cico
+    setCitys(locals)
+    locals.unshift(all)
+
+    return locals,citys
 
   }
+
 
   useEffect(() => {
     optionsSelect()
@@ -146,7 +134,7 @@ const ComponetDrawer = (props) => {
               <Select style={{ width: 120 }} value={location} onDoubleClick={clearSelected} onChange={selectCity}>
                 {
                   citys?.map((item, index) => (
-                    <Option key={index} value={item}>{item}-Finlandia</Option>
+                    <Option key={index} value={item}>{item}</Option>
                   ))
                 }
               </Select>

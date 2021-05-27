@@ -62,8 +62,9 @@ const Airdbnb = () => {
 
     const filter = (location,count) =>{
         console.log(location,count)
-       
-       const citys = STAY_LIST.filter((item) => item.city === location && item.maxGuests >= count)  
+        
+        
+       const citys = STAY_LIST.filter((item) => item.city === city && item.maxGuests >= count)  
        setCity(location)
         setGuest(count)
         citys.forEach(element => {
@@ -76,7 +77,7 @@ const Airdbnb = () => {
        
        if(location.length === 0){
           setData(persons)
-      }else if(location === "" && count === 0 ) {
+      }else if(location === 'all' ) {
           setData(STAY_LIST)
       }else{
           setData(citys)          
