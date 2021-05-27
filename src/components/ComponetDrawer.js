@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Button, Divider, Drawer, Input, Select, version } from 'antd'
 import 'antd/dist/antd.css';
 import styled from 'styled-components'
@@ -93,27 +93,32 @@ const ComponetDrawer = (props) => {
 
 
 
-  const optionsSelect = () => {
+  const optionsSelect =  () => {
     let locals = [];
    
-    let all = 'all'
+
     data.map((item) => {
       const city = item.city;
       if (!locals.includes(city)) {
         locals = [...locals, city]
       }
     })
-    setCitys(locals)
+    let all = 'all'
     locals.unshift(all)
 
-    return locals,citys
+    if(all)
+    setCitys(locals)
+
+    return locals
 
   }
 
 
   useEffect(() => {
     optionsSelect()
-  }, [])
+  }, [data])
+  
+  
 
   const ver = (e) =>{
    console.log(e.target.value)
@@ -131,17 +136,17 @@ const ComponetDrawer = (props) => {
         <Wrapper>
           <form onSubmit={filter}>
             <div className="container">
-              <Select style={{ width: 120 }} value={location} onDoubleClick={clearSelected} onChange={selectCity}>
+              <Select style={{ width: 120  }} value={location} onDoubleClick={clearSelected} onChange={selectCity}>
                 {
                   citys?.map((item, index) => (
                     <Option key={index} value={item}>{item}</Option>
                   ))
                 }
               </Select>
-              <Divider className="dividers" type="vertical" />
+              <Divider className="divider-1" type="vertical" />
               <Input onChange={(e) => setCount(e.target.value)} value={count} className="success" />
-              <Divider className="dividers" type="vertical" />
-              <button type="submit" className="searching">
+              <Divider className="divider-2" type="vertical" />
+              <button type="submit" className="btn btn-danger searching" >
                 <span >
                   <span className="material-icons" style={{ color: 'white' }}>
                     search
@@ -212,6 +217,18 @@ const ComponetDrawer = (props) => {
 
 const Wrapper = styled.div`
 
+@media screen and (max-width: 396px) {
+  .divider-1{
+  display: none;
+}
+}
+
+@media screen and (max-width: 512px) {
+  .divider-2{
+  display: none;
+}
+}
+
 .Counting{
   display: grid;
     justify-content: center;
@@ -239,13 +256,13 @@ margin-left:10px;
 .searching{
   color:white;
   align-items:baseline;
-  line-height: 18px;
   width: 100px;
-background: #EB5757;
-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.1);
-border-radius: 16px;
+  background: #EB5757;
+  box-shadow: 0px px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
 }
-.dividers{
+
+.divider-1,.divider-2{
   height:auto
 }
 .container{

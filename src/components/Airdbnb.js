@@ -92,21 +92,16 @@ const Airdbnb = () => {
                 <div className="wind">
                     <img src={logo} alt='logo' className="logo" />
                 </div>
-              
-
-               
                 <div className="searching">
-
                     <div className="search">
-                        <Input  value={city} onChange={e => setCity(e.target.value)} className="success" />
+                        <div  className="city" >{city}</div>
                         <Divider type='vertical' style={{ height: '30px' }} />
-                        <Input value={guest} onChange={e => setGuest(e.target.value)} placeholder="Add guests" className="success" />
+                        <div   className="guests" > {guest && guest ? guest : 'Add guests'}</div>
                         <Divider type='vertical' style={{ height: '30px' }} />
                         <span onClick={showDrawer} className="material-icons" style={{ marginRight: '10px', marginTop: '5px' }}>
                             search
                         </span>
                     </div>
-                   
                 </div>
                 <br/>
               
@@ -127,12 +122,12 @@ const Airdbnb = () => {
                                 <img src={item?.photo} alt="property" className="imagenes" />
 
                                 <div className="flex-container">
-                                    {item?.superHost ? <p className="host">SUPER HOST</p> : ''}
+                                    {item?.superHost ? <b className="host">SUPER HOST</b> : ''}
                                     {item?.type}
                                     {item?.beds !== null ? <p>{item.beds} beds</p> : ''}<span>
-                                        <span className="material-icons">star_rate</span>{item?.rating} </span>
+                                        <span className="material-icons" style={{color:'red'}}>star_rate</span>{item?.rating} </span>
                                 </div>
-                                {item?.title ? <p>{item.title}</p> : ''}
+                                {item?.title ? <b>{item.title}</b> : ''}
                             </div>
 
                         )
@@ -154,9 +149,8 @@ const Wrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin:30px;
-
-
+    margin:5%;
+    line-height:100%;
 }
 .wind{
     margin-left: -10px;
@@ -164,17 +158,25 @@ const Wrapper = styled.div`
 @media screen and (max-width: 550px) {
  
 .searching{
-    margin-top: 20px;
+    margin-top: 30px;
+    position: auto;
 }
 }
-.ant-input.success {
-    border-color: none;
-    box-shadow: none;
-    outline-color:  none;
-    border-style:none;
+.searching{
+    margin-left: auto;
+}
+.city{
+    width: 80px;
+    margin-left: 25px;
+    line-height: 30px;
+}
+.guests {
+    width: 80px;
+    
+    line-height: 30px;
+
 
 }
-  
 
 .logo{
     width:100px;
@@ -206,7 +208,10 @@ height: 20px;
     float:left;
     border: 1px solid #4F4F4F;
 box-sizing: border-box;
-border-radius: 12px;
+border-radius: 14px;
+border-color: #000;
+width: 25%;
+    height: 10%;
 }
 .imagenes{
     width:95%;
