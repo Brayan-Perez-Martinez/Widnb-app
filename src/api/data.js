@@ -103,9 +103,8 @@ export const STAY_LIST = [
         'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80',
     },
     {
-            id:9,
-
-      city: 'F',
+      id:9,
+      city: 'Porvoo',
       country: 'Finland',
       superHost: false,
       title: 'Beautiful new studio apartment nearby the center',

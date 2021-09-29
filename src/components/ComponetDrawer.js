@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import { Button, Divider, Drawer, Input, Select, version } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Button, Divider, Drawer, Input, Select } from 'antd'
 import 'antd/dist/antd.css';
 import styled from 'styled-components'
 import { STAY_LIST } from '../api/data'
-import { configConsumerProps } from 'antd/lib/config-provider';
 const ComponetDrawer = (props) => {
 
-  const { placement, onClose, visible, filterSearch, setPrueba } = props
+  const { placement, onClose, visible, filterSearch } = props
 
   const { Option } = Select;
   const [countAdult, setCountAdult] = useState(0)
@@ -22,7 +21,6 @@ const ComponetDrawer = (props) => {
     setTimeout(() => {
       const res = STAY_LIST
       setData(res)
-      console.log(res)
 
     }, 3000);
 
@@ -32,15 +30,17 @@ const ComponetDrawer = (props) => {
     getData()
   }, [])
 
-  const finalCount = (e) => {
-    if (countAdult >= 0 && countChild >= 0) {
-      setCount(countAdult + countChild)
-    } else {
-      setCount(0)
-    }
-  }
+ 
 
   useEffect(() => {
+    const finalCount = (e) => {
+      if (countAdult >= 0 && countChild >= 0) {
+        setCount(countAdult + countChild)
+      } else {
+        setCount(0)
+      }
+    }
+
     finalCount()
   }, [countAdult, countChild])
 
@@ -72,7 +72,6 @@ const ComponetDrawer = (props) => {
 
   maxCount()
   const selectCity = (value) => {
-    console.log(value)
     setLocation(value)
   }
 
@@ -81,48 +80,38 @@ const ComponetDrawer = (props) => {
     filterSearch(location, count)
 
   }
-  /* 
-  useEffect(() => {
-    filterSearch(location,count)
-  }, [location,count]) */
   const clearSelected = () => {
-    // this line will clear the select
-    // when you click on the button
+    
     setLocation('')
   }
 
 
 
-  const optionsSelect =  () => {
-    let locals = [];
-   
+  
 
+
+  useEffect(() => {
+    const optionsSelect =  () => {
+    let locals = [];
     data.map((item) => {
       const city = item.city;
       if (!locals.includes(city)) {
         locals = [...locals, city]
       }
+      return item
     })
     let all = 'all'
     locals.unshift(all)
-
-    if(all)
     setCitys(locals)
-
     return locals
-
   }
-
-
-  useEffect(() => {
+  
     optionsSelect()
   }, [data])
   
   
 
-  const ver = (e) =>{
-   console.log(e.target.value)
-  }
+
   return (
     <div>
 
@@ -136,7 +125,7 @@ const ComponetDrawer = (props) => {
         <Wrapper>
           <form onSubmit={filter}>
             <div className="container">
-              <Select style={{ width: 120  }} value={location} onDoubleClick={clearSelected} onChange={selectCity}>
+              <Select style={{ width: 120  }} className="success"  value={location} onDoubleClick={clearSelected} onChange={selectCity}>
                 {
                   citys?.map((item, index) => (
                     <Option key={index} value={item}>{item}</Option>
@@ -147,10 +136,10 @@ const ComponetDrawer = (props) => {
               <Input onChange={(e) => setCount(e.target.value)} value={count} className="success" />
               <Divider className="divider-2" type="vertical" />
               <button type="submit" className="btn btn-danger searching" >
-                <span >
+                <span style={{display:'flex'}} >
                   <span className="material-icons" style={{ color: 'white' }}>
                     search
-            </span>Search </span>
+                  </span>Search </span>
               </button>
 
             </div>
@@ -158,55 +147,20 @@ const ComponetDrawer = (props) => {
             <div className="Counting">
               <p>Adults</p>
               <p>Ages 13 or above</p>
-              <span><Button className="btn-1" onClick={adultDecrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-4px' }}>remove</span></Button>
+              <span style={{display:'flex'}}><Button className="btn-1" onClick={adultDecrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-4px' }}>remove</span></Button>
                 {countAdult}
-                <Button className="btn-2" onClick={adultIncrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-5px' }}>add</span></Button>
+              <Button className="btn-2" onClick={adultIncrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-5px' }}>add</span></Button>
               </span>
               <p>Children</p>
               <p>Ages 2-12</p>
-              <span>
+              <span style={{display:'flex'}}>
                 <Button className="btn-1" onClick={childDecrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-4px' }}>remove</span></Button>
                 {countChild}
                 <Button className="btn-2" onClick={childIncrement}><span className="material-icons" style={{ marginLeft: '-11px', marginTop: '-5px' }}>add</span></Button>
               </span>
             </div>
-           {/*  {
-            citys?.map((item, index) => (
-
-              < ul key={index} class="list-group list-group-flush" >
-                <li onFocus={(item) => ver(item)} class="list-group-item">{item} - Finlandia</li>
-              </ul>
-              <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <input type="checkbox" aria-label="Checkbox for following text input"/>
-                </div>
-              </div>
-              {item} - Finlandia
-            </div>
-            ))
-          } */}
           </form>
-          {/*  <table>
-        <thead>
-          <tr>
-            {cico && cico[0].map((item, index) => {
-              return <th key={index}>{item}</th>;
-            })}
-          </tr>
-        </thead>
-        <tbody>
-          {cico && cico.slice(1, cico.length).map((item, index) => {
-            return (
-              <tr> 
-                <td key={index}>{item[0]}</td>
-                <td key={index}>{item[1]}</td>
-                <td key={index}>{item[2]}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table> */}
+         
           
         </Wrapper>
 
@@ -274,7 +228,7 @@ margin-left:10px;
   justify-content:space-evenly;
 }
 .ant-input.success{
-  width:auto;
+  width:120px;
   border-radius:12px;  
   border-style:none;
 }
@@ -293,6 +247,20 @@ margin-left:10px;
     border:1px solid black;
     box-shadow: 0 0 10px #fff;
 
+}
+
+@media screen and (max-width:730px){
+      .success{
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .searching{
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .container{
+        display: grid;
+      }
 }
 
 `
